@@ -1,0 +1,410 @@
+<%- include('../partials/head') %>
+
+<link rel="stylesheet" href="/css/customer.css">
+
+<% d = new Date(); %>
+<%utc = d.getTime() + (d.getTimezoneOffset() * 60000); %>
+<%hour = new Date(utc + (3600000*+5.5)).getHours(); %>
+<%Session=["","8:00AM - 12:00PM","12:00PM - 4:00PM","4:00PM - 8:00PM"] %>
+<%date = new Date(utc + (3600000*+5.5)).getDate(); %>
+<%month = new Date(utc + (3600000*+5.5)).getMonth(); %>
+<%tdate = new Date(utc + (3600000*+29.5)).getDate(); %>
+<%tmonth = new Date(utc + (3600000*+29.5)).getMonth(); %>
+<%mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];%>
+
+
+<div class="container padding-bottom-3x mb-2 margin-top-control-other">
+    <div class="card  shadow-lg o-hidden border-0 my-5 profile" style="background: rgba(255, 255, 255, 0.85);">
+        <div class="card-body p-0">
+            <div class="row">
+
+                <div class="col-lg-4 left-content">
+                    <div class="user-info-wrapper">
+                        <div class="user-info">
+                            <div class="user-data">
+                                <span class="text-center"
+                                    style="color: #16AF00;font-weight: 400;font-family: 'futura';font-size: 24px;margin-bottom: 10px;">Welcome</span>
+                                <h4 style="color: #ff8400;"><%= currentUser.name %></h4><span>Joined
+                                    <%= currentUser.date.toString().split(' ').slice(0, 4).join(' ') %></span>
+                                <span style="font-weight: 300;color: #16AF00;"><b><i
+                                            class="fa fa-<%=currentUser.gender.toLowerCase()%>"> Nodal </i></b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 " style="position: relative;">
+                        <nav class="list-group " role="tablist">
+                            <a class="list-group-item with-badge text-center dashboard-bar" href="#"
+                                style="border: none !important;padding: 4px;font-size: medium;" onclick="Landing()"
+                                role="tab" data-toggle="tab"><i class=" fa fa-tachometer"
+                                    style="color: #16AF00;"></i>Dashboard
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-8 right-content">
+
+                    <% if(Ferror && Ferror.length>0){ %>
+                    <div id="errAlert" class="alert alert-danger mx-5 mt-5" role="alert">
+                        <strong><%=Ferror %></strong>
+                    </div>
+                    <% } else if(Fsuccess && Fsuccess.length>0){ %>
+                    <div id="sucAlert" class="alert alert-success mx-5 mt-5" role="alert">
+                        <strong><%=Fsuccess %></strong>
+                    </div>
+                    <% } %>
+
+
+
+
+
+                    <!-- Langing Site   -->
+
+                    <div class="p-5" id="Landing">
+
+                        <div class="p-2">
+                            <!-- <h4 class="text-center note">Select your choice</h4> -->
+                        </div>
+
+
+                        <div class="row justify-content-center">
+
+                            <!-- choose option -->
+                            <button class="btn btn-primary text-white  submit-edit orange-btn"
+                                style="margin-top: 30px; background-color: #ff8400 ; border: #ff8400;"
+                                onclick="Orders()" id="genReq">
+                                Requests Pending
+                            </button>
+                            <!-- <button class="btn btn-primary  submit-edit bluebtn"
+                                style="margin-top: 30px; background-color: white; border-color: navy; color : navy;"
+                                onclick="Orders()" id="genOdr">
+                                Check Requests Status
+                            </button> -->
+                            <button class="btn btn-primary text-white  submit-edit" style="margin-top: 30px;"
+                                onclick="Profile()">
+                                My Profile
+                            </button>
+                            <!-- choose option ends -->
+
+                        </div>
+                    </div>
+
+                    <!-- section Landing Site ends here -->
+
+
+
+                    <!-- section 2 past request -->
+                    <div class="p-5" id="Orders" style="display: none;">
+                        <div class="text-center">
+                            <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">My Requests Details</h4>
+                        </div>
+                        <!-- table      -->
+
+                        <div id="Requests">
+
+                        </div>
+                        <br><br>
+                        <h4 style="text-align: left;color: #ff8400;">Please note:</h4>
+                        <li>The Donor will drop the food package within an hour, Please check if the package holds the
+                            Recipient ID on it.
+                        </li>
+                        <li>Recipent will provide you with his/her Recipient ID and will ask for OTP, Deliver the food
+                            only if the OTP matches and the transaction is successfull.
+                        </li>
+
+                        <div class="row " style="margin-top: 50px;">
+                            <div class="col-11 justify-content-center">
+                                <a class="anchor-text  send-otp float-left" onclick="Landing()">
+                                    &laquo;Prev
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- past request -->
+
+
+
+                    <!-- section 3 personal_information -->
+
+                    <div class="p-5" id="Profile" style="display: none;">
+                        <div class="text-center">
+                            <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">Personal Information</h4>
+                        </div>
+                        <!-- form       -->
+                        <form>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Number</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content  edit-content-label"
+                                        id="static-username" value="<%=currentUser.username%>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Full name</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label"
+                                        id="static-password" value="<%=currentUser.name%>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Gender</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="Gender"
+                                        value="<%=currentUser.gender%>">
+                                </div>
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Age</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="Age"
+                                        value="<%=currentUser.age%>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">User-Type</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="usertype"
+                                        value="<%=currentUser.userType%>">
+                                </div>
+                                <label for="static-email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label"
+                                        id="static-email" value="<%=currentUser.email%>">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">State</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="state"
+                                        value="<%=currentUser.location.state%>">
+                                </div>
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">City</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="city"
+                                        value="<%=currentUser.location.city %>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="address"
+                                        value="<%=currentUser.address %>">
+                                </div>
+                            </div>
+                        </form>
+                        <!-- form ends    -->
+
+                        <div class="row justify-content-center">
+
+                            <div class="col-sm-4 btn-content">
+                                <form action="/dashboard/edit" method="GET">
+                                    <button class="btn btn-primary text-white  submit-edit" type="submit">
+                                        Edit
+                                    </button>
+
+                                </form>
+                            </div>
+
+                            <div class="col-sm-4 btn-content">
+                                <a href="#" class="btn btn-primary text-white  submit-edit" role="button"
+                                    data-toggle="modal" data-target="#deletemodal">
+                                    Delete Account
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <div class="row " style="margin-top: 50px;">
+                            <div class="col-11 justify-content-center">
+                                <a class="anchor-text  send-otp float-left" onclick="Landing()">
+                                    &laquo;Prev
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- section 3 personal_information ends here-->
+
+
+
+
+
+                    <!-- Modal -->
+                    <div id="deletemodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content ">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    style="text-align: right;">&times;</button>
+                                <!-- <h3 class="pt-3 pl-3">Your Drop Off Location!</h3> -->
+                                <!-- <div class="modal-header">
+
+                                    <div id="map" style="height: 400px; width: 400px;">Cannot Fetch for Location, Please
+                                        check your permissions and refresh your page!</div>
+                                  
+                                </div> -->
+                                <div class="modal-body">
+
+                                    <div class="p-2">
+                                        <p id="markerError"></p>
+                                        <div class="row ">
+                                            <div class="col-sm-12 form-check text-center">
+                                                <h5> Please confirm to delete your account.</h5>
+
+                                            </div>
+                                            <div class="container">
+                                                <center style="margin-top: 20px;">
+                                                    <form action="/dashboard/delete" method="POST">
+                                                        <input type="text" name="id" value="<%=currentUser._id%>"
+                                                            style="display: none;" readonly>
+                                                        <input type="text" name="userType"
+                                                            value="<%=currentUser.userType%>" style="display: none;"
+                                                            readonly>
+                                                        <button class="btn text-white  submit-edit" type="submit"
+                                                            style="width: 40%;">Yes</button>
+                                                    </form>
+                                                    <br>
+                                                    <button type="button" class="btn text-white  submit-edit"
+                                                        style="width: 40%;" data-dismiss="modal">No</button>
+                                                </center>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- modal section ends here -->
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var mealType, sessionNumber;
+    var APIADDRESS = "/api/transactions";
+    var Session = ["", "8:00AM - 12:00PM", "12:00PM - 4:00PM", "4:00PM - 8:00PM"]
+
+
+    function addRequest() {
+        var Requests = $('#Requests');
+        Requests.empty()
+
+        $.ajax({
+            method: "GET",
+            headers: {
+                "Authorization": "Basic QW5uZGF0YTpBbm5kYXRh"
+            },
+            url: APIADDRESS + "/nodal/" + '<%=currentUser._id%>'
+        }).done(function (transactions) {
+            for (i = 0; i < transactions.length; i++) {
+
+                Requests
+                    .append($('<div>').attr('class', 'card request-card-box')
+                        .append($('<div>').attr('class', 'card-body pr-0 pl-0 pb-3')
+                            .append($('<div>').attr('class', 'row')
+                                .append($('<div>').attr('class', 'col-sm-12')
+                                    .append($('<div>').attr('class', 'row ml-4')
+
+                                        .append($('<div>').attr('class', 'col-sm-3 card-request-img')
+                                            .append($('<div>').attr('class', 'row')
+                                                .append($('<img>').attr('src', '/images/Logo/' + transactions[i].consumer.gender.toLowerCase() + '.png').attr('style', 'width: 50%;'))))
+
+                                        .append($('<div>').attr('class', 'col-sm-3 card-request card-request-small')
+                                            .append($('<div>').attr('class', 'row')
+                                                .append($('<span>').attr('style', 'color: #16AF00 !important;font-size: 12px;').text('Recipient ID : '))
+                                                .append($('<span>').attr('class', 'request-text').attr('style', 'font-size: 12px;').text(transactions[i].consumer.uid).prepend("&nbsp; &nbsp;")))
+                                            .append($('<div>').attr('class', 'row')
+                                                .append($('<span>').attr('style', 'color: #16AF00 !important;font-size: 12px;').text('OTP : '))
+                                                .append($('<span>').attr('class', 'request-text').attr('style', 'font-size: 12px;').text(transactions[i].matchKey).prepend("&nbsp; &nbsp;")))
+
+                                            .append($('<div>').attr('class', 'row')
+                                                .append($('<span>').attr('style', 'color: #16AF00 !important;font-size: 12px;').text('Time Slot : '))
+                                                .append($('<span>').attr('class', 'request-text').attr('style', 'font-size: 12px;').text(Session[transactions[i].slot]).prepend("&nbsp; &nbsp;"))))
+
+                                        .append($('<div>').attr('class', 'col-sm-3 card-request-otp card-request-small')
+                                            .append($('<div>').attr('class', 'row')
+                                                .append($('<span>').attr('style', 'color: #16AF00 !important;font-size: 12px;').text('Quantity :')))
+                                            .append($('<div>').attr('class', 'row')
+                                                .append($('<span>').attr('class', 'request-text').attr('style', 'font-size: 12px;').text(' Child : '))
+                                                .append($('<span>').attr('class', 'request-text').attr('style', 'font-size: 12px;').text(transactions[i].quantity.child).prepend("&nbsp; &nbsp;"))
+                                                .append($('<span>').attr('class', 'request-text').attr('style', 'font-size: 12px;').text(' Adult : ').prepend("&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"))
+                                                .append($('<span>').attr('class', 'request-text').attr('style', 'font-size: 12px;').text(transactions[i].quantity.adult).prepend("&nbsp; &nbsp;"))))
+                                    )
+
+                                )
+                            )
+                        )
+                    )
+
+            }
+        })
+
+    }
+
+    function Landing() {
+
+        $("#errAlert").hide();
+        $("#sucAlert").hide();
+        $("#Landing").show();
+        $("#Profile").hide();
+        $("#Orders").hide();
+
+    }
+
+
+    function Profile() {
+
+        $("#errAlert").hide();
+        $("#sucAlert").hide();
+        $("#Landing").hide();
+        $("#Profile").show();
+        $("#Orders").hide();
+
+    }
+
+    function Orders() {
+        addRequest();
+        $("#errAlert").hide();
+        $("#sucAlert").hide();
+        $("#Landing").hide();
+        $("#Profile").hide();
+        $("#Orders").show();
+    }
+
+</script>
+
+<%- include('../partials/tail') %>

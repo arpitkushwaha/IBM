@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Anndata</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/Logo/ANNDATA LOGO1.png">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Mansalva|Roboto&display=swap" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="/fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/animate.min.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
+  <link rel="stylesheet" href="/css/aos.css">
+
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/signup.css">
+
+  <!-- NEW CAROUSEL CSS-->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <!-- ./NEW CAROUSEL CSS -->
+
+</head>
+
+<script>
+  function toggleNav() {
+    document.getElementById("mySidenav").classList.toggle("sidenavbefore");
+    document.getElementById("mySidenavUl").classList.toggle("ulbefore");
+    document.getElementById("mySidenav").classList.toggle("sidenav");
+  }
+</script>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+
+  <div class="site-wrap" id="home-section">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <!-- nav bar -->
+
+    <nav class="navbar shadow-sm navbar-expand-lg fixed-top" id="navTop">
+      <div class="container" style="background: transparent;">
+        <a class="navbar-brand" href="/">
+          <img src="/images/Logo/ANNDATA LOGO1.png" alt="" style="width: 40px;height: 47px;">
+          <img src="/images/Logo/newanndata.png" alt="" style="width: 130px;height: 45px;">
+        </a>
+        <div id="google_translate_element"></div>
+        <button class="navbar-toggler" type="button" onclick="toggleNav()" data-target="#navbarResponsive"
+          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fa fa-bars" style="color: #ff8400;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">
+                Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">
+                About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/philosophy">Philosophy</a>
+            </li>
+
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="/safe">Stay Safe</a>
+            </li> -->
+
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="https://www.wefeedindia.com">We feed India</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="/terms">T&C</a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="/whatfood">Food & Packing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/team">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">Contact-Us</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/faq">FAQS</a>
+            </li>
+            <% if(!currentUser){%>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Sign UP</a>
+            </li>
+
+            <% } else { %>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                User
+              </a>
+              <div class="dropdown-menu "
+                style="border: none;box-shadow: 0px 0px 10px 1px lightgray;border-radius: 15px;background: transparent;">
+
+                <a class="dropdown-item logout-pc" href="/dashboard">
+                  <div class="col-sm-4">
+                    <img src="/images/New/login.png" class="p-2" alt=""
+                      style="width: 100px;height: 100px; background-color: #0b5601; border-radius: 50%;">
+                  </div>
+                </a>
+                <a class="dropdown-item text-center logout-pc" href="/logout">Logout</a>
+              </div>
+              <style>
+                .logout-pc:hover {
+                  background: transparent !important;
+                }
+              </style>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- nav-bar ends -->
+
+  <div id="mySidenav" class="sidenavbefore fixed-top">
+    <ul id="mySidenavUl" class="navbar-nav px-2 ulbefore">
+      <a onclick="toggleNav()" style="margin-left: auto;">
+        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+      </a>
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">
+          About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/philosophy">Philosophy</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="/safe">Stay Safe</a>
+      </li> -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="https://www.wefeedindia.com">We feed India</a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" href="/terms">T&C</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/whatfood">Food & Packing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/team">Team</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Contact-Us</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/faq">FAQS</a>
+      </li>
+
+      <% if(!currentUser){%>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register">Sign UP</a>
+      </li>
+
+      <% } else { %>
+
+      <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          User
+        </a>
+        <div class="dropdown-menu "
+          style="border-radius: 20px;border: none;box-shadow: 0px 4px 10px 0.5px black;background: rgba(0, 0, 0, 0.9);">
+
+          <a class="dropdown-item" href="/dashboard">
+            <div class="col-sm-4">
+              <img src="/images/New/login.png" class="p-2" alt=""
+                style="width: 100px;height: 100px; background-color: #0b5601; border-radius: 50%;">
+            </div>
+          </a>
+          <a class="dropdown-item text-center" href="/logout" id="logout-text"
+            style="color: #ff8400 !important; font-weight: 600;">Logout</a>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+
+
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    #myBtn {
+      z-index: 10;
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #16AF00;
+
+      color: white;
+      outline: none;
+      cursor: pointer;
+
+    }
+
+    #myBtn:active {
+      background: rgb(18, 124, 2);
+    }
+  </style>
+
+  <script>
+    var mybutton = document.getElementById("myBtn");
+    window.onscroll = function () { scrollFunction() };
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+  <!-- upbutton -->
+  <button onclick="topFunction()" id="myBtn" title="Go to top">
+    <i class="fa fa-arrow-up" style="color: white !important;"></i>
+  </button>
+
+
+  <!-- upbutton ends -->
+
+
+
+
+  <!-- OTP -->
+
+
+  <script>
+    $(".inputs").keyup(function () {
+      if (this.value.length == this.maxLength) {
+        $(this).next('.inputs').focus();
+      }
+      else {
+        $(this).prev('.inputs').focus();
+      }
+    });
+  </script>
+  <!-- OTP ends -->

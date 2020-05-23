@@ -1,0 +1,319 @@
+<%- include('../partials/head') %>
+
+<link rel="stylesheet" href="/css/customer.css">
+
+
+<div class="container padding-bottom-3x mb-2 margin-top-control-other">
+    <div class="card  shadow-lg o-hidden border-0 my-5 profile">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-4 left-content">
+                    <div class="user-info-wrapper">
+
+                        <div class="user-info">
+
+                            <div class="user-data">
+                                <span
+                                    style="color: #16AF00;font-weight: 400;font-family: Exotc350 DmBd Bt;">Hello</span>
+                                <h4 style="color: #ff8400;"><%= currentUser.name %></h4>
+                                <span><%= currentUser.date.toString().split(' ').slice(0, 4).join(' ') %></span>
+                                <a href="#">
+
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 " style="position: relative;">
+                        <nav class="list-group ">
+                            <a class="list-group-item" href="#" style="border: none !important" onclick="profile()"><i
+                                    class="fa fa-user " style="color: #16AF00"></i>Profile</a>
+
+                            <a class="list-group-item" href="#" style="border: none !important"
+                                onclick="changepass()"><i class="fa fa-key " style="color: #16AF00"></i>Change
+                                Password</a>
+                        </nav>
+                    </div>
+
+                </div>
+                <div class="col-lg-8 right-content">
+
+                    <!-- section 3 personal_information -->
+
+                    <div class="p-5" id="profilec">
+                        <div class="text-center">
+                            <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">Personal Information</h4>
+                        </div>
+                        <!-- form       -->
+
+                        <form action="/dashboard/edit" method="POST">
+
+                            <div class="form-group row">
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="fullname" class="label-content">Full Name</label>
+                                    <input type="text" class="form-control form-content" placeholder="Full Name"
+                                        id="fullname" name="name" value="<%=currentUser.name%>" required>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="phNumber" class="label-content">Mobile Number</label>
+                                    <input type="text" class="form-control form-content" placeholder="Contact"
+                                        name="username" readonly value="<%=currentUser.username%>" required>
+                                </div>
+
+                                <!-- <div class="col-sm-6">
+                                    <label for="inputGroupSelect01" class="label-content">User Type</label>
+                                    <select class="custom-select form-content" id="userType" name="userType" disabled>
+                                        <option value="<%=currentUser.userType%>"><%=currentUser.userType%>
+                                        </option>
+                                    </select>
+                                </div> -->
+
+                                <div class="col-sm-6">
+                                    <label for="email" class="label-content">Email</label>
+                                    <input type="text" class="form-control form-content" placeholder="Email"
+                                        name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="<%=currentUser.email%>">
+                                </div>
+
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="inputGroupSelect01" class="label-content">Select Gender</label>
+                                    <select class="custom-select form-content" id="inputGroupSelect01" name="gender"
+                                        required>
+                                        <option selected value="">Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="User"> Others</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="age" class="label-content">Age</label>
+                                    <input type="text" class="form-control form-content" placeholder="Age" name="age"
+                                        id="age" value="<%=currentUser.age%>" required>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="inputState" class="label-content"> Your State</label>
+                                    <select class="custom-select form-content" id="inputState" name="state" required>
+                                        <option selected value="">State</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                        <option value="Assam">Assam</option>
+                                        <option value="Bihar">Bihar</option>
+                                        <option value="Chandigarh">Chandigarh</option>
+                                        <option value="Chhattisgarh">Chhattisgarh</option>
+                                        <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                        <option value="Daman and Diu">Daman and Diu</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Lakshadweep">Lakshadweep</option>
+                                        <option value="Puducherry">Puducherry</option>
+                                        <option value="Goa">Goa</option>
+                                        <option value="Gujarat">Gujarat</option>
+                                        <option value="Haryana">Haryana</option>
+                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                        <option value="Jharkhand">Jharkhand</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Manipur">Manipur</option>
+                                        <option value="Meghalaya">Meghalaya</option>
+                                        <option value="Mizoram">Mizoram</option>
+                                        <option value="Nagaland">Nagaland</option>
+                                        <option value="Odisha">Odisha</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="Sikkim">Sikkim</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Telangana">Telangana</option>
+                                        <option value="Tripura">Tripura</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                        <option value="Uttarakhand">Uttarakhand</option>
+                                        <option value="West Bengal">West Bengal</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="inputCity" class="label-content"> Your City</label>
+                                    <input type="text" class="form-control form-content" placeholder="City" name="city"
+                                        required id="inputCity" value="<%=currentUser.location.city%>">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="exampleFormControlTextarea1" class="label-content"> Full Address</label>
+                                    <textarea class="form-control form-content" id="exampleFormControlTextarea1"
+                                        rows="3" name="address" placeholder="Enter address"
+                                        required><%=currentUser.address%></textarea>
+                                </div>
+
+                            </div>
+
+                            <input type="text" name="id" value="<%=currentUser._id%>" style="display: none;" readonly>
+
+                            <div class="row justify-content-center mr-2">
+
+                                <div class="col-sm-4 btn-content">
+                                    <button class="btn btn-primary text-white  submit-edit" type="submit">
+                                        Save Changes
+                                    </button>
+                                </div>
+
+
+                                <div class="col-sm-4 btn-content">
+                                    <a href="/dashboard" class="btn btn-primary text-white  submit-edit" type="submit">
+                                        Cancel
+                                    </a>
+                                </div>
+
+                        </form>
+                        <!-- form ends    -->
+                    </div>
+                </div>
+
+
+                <!-- change password      -->
+
+                <div class="p-5" id="changepass" style="display: none;">
+                    <div class="text-center">
+                        <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">Change Password </h4>
+                    </div>
+                    <!-- form       -->
+
+                    <form action="/dashboard/password" method="POST">
+
+                        <div class="form-group row">
+
+                        </div>
+                        <div class="form-group row">
+
+                            <div class="col-sm-12 mb-3">
+
+                                <label for="newPass" class="label-content mt-2" style="margin-bottom: 10px;">New
+                                    Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control pwd" id="newPass" placeholder="Password"
+                                        name="password" onkeyup="check()"
+                                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$">
+                                    <span class="input-group-btn" id="eyeSlash1">
+                                        <button class="btn btn-default reveal"
+                                            onclick="$('#newPass').attr('type', 'text');$('#eyeSlash1').hide();$('#eyeShow1').show();"
+                                            type="button"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                                    </span>
+                                    <span class="input-group-btn" id="eyeShow1" style="display: none;">
+                                        <button class="btn btn-default reveal"
+                                            onclick="$('#newPass').attr('type', 'password');$('#eyeShow1').hide();$('#eyeSlash1').show();"
+                                            type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+
+
+
+                                <label for="confirmPass" class="label-content mt-2" style="margin-bottom: 10px;">Confirm
+                                    Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control pwd" id="confirmPass"
+                                        placeholder="Password" onkeyup="check()">
+                                    <span class="input-group-btn" id="eyeSlash2">
+                                        <button class="btn btn-default reveal"
+                                            onclick="$('#confirmPass').attr('type', 'text');$('#eyeSlash2').hide();$('#eyeShow2').show();"
+                                            type="button"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                                    </span>
+                                    <span class="input-group-btn" id="eyeShow2" style="display: none;">
+                                        <button class="btn btn-default reveal"
+                                            onclick="$('#confirmPass').attr('type', 'password');$('#eyeShow2').hide();$('#eyeSlash2').show();"
+                                            type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                        <small class="text-muted">Required Format:</small>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <small><i class="fa fa-check-circle-o" aria-hidden="true"></i> Atleast One
+                                    capital character</small>
+                            </div>
+                            <div class="col-sm-6">
+                                <small class=""><i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                    Atleast One small character</small>
+                            </div>
+                            <div class="col-sm-6">
+                                <small class=""><i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                    Atleast One digit</small>
+                            </div>
+                            <div class="col-sm-6">
+                                <small class=""><i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                    Atleast 8 character long</small>
+                            </div>
+                        </div>
+
+                        <input type="text" name="id" value="<%=currentUser._id%>" style="display: none;" readonly>
+
+                        <div class="row justify-content-center mt-4">
+
+                            <div class="col-sm-4 btn-content">
+                                <button class="btn btn-primary text-white  submit-edit" type="submit" id="battle"
+                                    disabled>
+                                    Confirm
+                                </button>
+                            </div>
+
+
+                    </form>
+                    <!-- form ends    -->
+                </div>
+
+
+                <!-- change password  ends here      -->
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function profile() {
+        $("#profilec").show();
+        $("#changepass").hide();
+    }
+
+    function changepass() {
+        $("#changepass").show();
+        $("#profilec").hide();
+    }
+
+    function check() {
+        Pass = document.getElementById("newPass");
+        matchPass = document.getElementById("confirmPass");
+        if (Pass.value == matchPass.value) {//or whatever th unwanted value is
+            document.getElementById("battle").disabled = false;
+        } else {
+            document.getElementById("battle").disabled = true;
+        }
+    }
+
+
+    $('[name=state]').val('<%=currentUser.location.state%>');
+    $('[name=gender]').val('<%=currentUser.gender%>');
+</script>
+
+<%- include('../partials/tail') %>

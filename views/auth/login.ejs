@@ -1,0 +1,92 @@
+<%- include('../partials/head') %>
+
+
+<!-- slider -->
+<div class="container margin-top-control-other">
+  <div class="card  shadow-lg o-hidden border-0 my-5 register">
+    <div class="card-body p-0">
+      <div class="row">
+        <div class="col-lg-5 d-none d-lg-flex ">
+          <div class="flex-grow-1 bg-register-image ">
+            <img src="/images/slider/Image 5.jpg.png" alt="" style="width: 100%;height: 100%;background-size: cover;">
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="p-5">
+            <div class="text-center">
+              <h4 class="text mb-4" style="color:  #16AF00;font-size: xx-large;">Login</h4>
+            </div>
+            <form action="/login" method="POST">
+              <div class="col-sm-12 mb3 mb-sm-0">
+                <% if(Ferror && Ferror.length>0){ %>
+                <div class="alert alert-danger" role="alert">
+                  <strong><%=Ferror %></strong>
+                </div>
+                <% } else if(Fsuccess && Fsuccess.length>0){ %>
+                <div class="alert alert-success" role="alert">
+                  <strong><%=Fsuccess %></strong>
+                </div>
+                <% } %>
+              </div>
+              <div class="form-group row justify-content-center form-content">
+                <div class="col-sm-10">
+                  <label for="exampleInputEmail1" class="label-content">Mobile Number</label>
+                  <input type="number" class="form-control form-content" id="exampleInputEmail1"
+                    placeholder="eg. 8674XXXXXX" name="username" pattern="[9876]{1}[0-9]{9}" required>
+                  <!-- <input type="password" class="form-control form-content" id="exampleInputPassword1"
+                    placeholder="Password" name="password"> -->
+                  <label for="exampleInputPassword1" class="label-content" style="margin-bottom: 10px;">Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control pwd" id="exampleInputPassword1" placeholder="Password"
+                      name="password" required>
+                    <span class="input-group-btn" id="eyeSlash">
+                      <button class="btn btn-default reveal"
+                        onclick="$('#exampleInputPassword1').attr('type', 'text');$('#eyeSlash').hide();$('#eyeShow').show();"
+                        type="button"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                    </span>
+                    <span class="input-group-btn" id="eyeShow" style="display: none;">
+                      <button class="btn btn-default reveal"
+                        onclick="$('#exampleInputPassword1').attr('type', 'password');$('#eyeShow').hide();$('#eyeSlash').show();"
+                        type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-sm-10 ">
+                  <button class="btn btn-primary btn-block text-white btn-user form-content form-content"
+                    type="submit">LOGIN</button>
+                </div>
+                <p class="remember">
+                  <input type="checkbox" id="remember" name="remember" value="1" />
+                  <label for="remember">Remember me</label>
+                </p>
+
+            </form>
+          </div>
+
+          <div class="text-center form-content">
+            <a href="/password">Log in with OTP </a>
+          </div>
+
+          <div class="text-center form-content">
+          </div>
+          <div class="text-center form-content">
+            <a class="small" href="/register">Don't have an account? Register Now!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  function changeMe(this) {
+    console.log(this.type)
+  }
+
+</script>
+
+<!-- slider ends -->
+
+<%- include('../partials/tail') %>

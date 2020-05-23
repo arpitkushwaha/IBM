@@ -1,0 +1,1442 @@
+<%- include('../partials/head') %>
+
+
+<link rel="stylesheet" href="css/customer.css">
+
+<% d = new Date(); %>
+<%utc = d.getTime() + (d.getTimezoneOffset() * 60000); %>
+<%hour = new Date(utc + (3600000*+5.5)).getHours(); %>
+<%date = new Date(utc + (3600000*+5.5)).getDate(); %>
+<%month = new Date(utc + (3600000*+5.5)).getMonth(); %>
+<%tdate = new Date(utc + (3600000*+29.5)).getDate(); %>
+<%tmonth = new Date(utc + (3600000*+29.5)).getMonth(); %>
+<%Session=["","8:00AM - 12:00PM","12:00PM - 4:00PM","4:00PM - 8:00PM"] %>
+<%mlist = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];%>
+
+<div class="container padding-bottom-3x mb-2 margin-top-control-other">
+    <div class="card  shadow-lg o-hidden border-0 my-5 profile">
+        <div class="card-body p-0">
+            <div class="row">
+
+                <div class="col-lg-4 left-content">
+                    <div class="user-info-wrapper">
+
+                        <div class="user-info">
+
+                            <div class="user-data">
+                                <span class="text-center"
+                                    style="color: #16AF00;font-weight: 400;font-family: 'futura';font-size: 24px;margin-bottom: 10px;">Welcome</span>
+                                <h4 style="color: #ff8400;"><%= currentUser.name %></h4>
+                                <span>Joined <%= currentUser.date.toString().split(' ').slice(0, 4).join(' ') %></span>
+                                <span style="font-weight: 300;color: blue;"><b><i
+                                            class="fa fa-<%=currentUser.gender.toLowerCase()%>"
+                                            style="color: blue !important;"></i>Donor</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 " style="position: relative;">
+                        <nav class="list-group " role="tablist">
+                            <a class="list-group-item with-badge text-center  dashboard-bar" href="#"
+                                style="border: none !important;padding: 4px;font-size: medium;" onclick="Landing()"
+                                role="tab" data-toggle="tab"><i class=" fa fa-tachometer" aria-hidden="true"
+                                    style="color: #16AF00;"></i>Dashboard
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-8 right-content">
+
+                    <% if(Ferror && Ferror.length>0){ %>
+                    <div id="errAlert" class="alert alert-danger mx-5 mt-5" role="alert">
+                        <strong><%=Ferror %></strong>
+                    </div>
+                    <% } else if(Fsuccess && Fsuccess.length>0){ %>
+                    <div id="sucAlert" class="alert alert-success mx-5 mt-5" role="alert">
+                        <strong><%=Fsuccess %></strong>
+                    </div>
+                    <% } %>
+
+
+
+                    <!-- Langing Site   -->
+
+                    <div class="p-5" id="Landing">
+                        <!-- 
+                        <div class="p-2">
+                            <h4 class="text-center note">Select your choice</h4>
+                        </div> -->
+
+
+                        <div class="row justify-content-center">
+
+                            <!-- choose option -->
+                            <button class="btn btn-primary text-white  submit-edit orange-btn"
+                                style="margin-top: 30px; background-color: #ff8400 ; border: #ff8400;""
+                                onclick=" Screen1()" id="genReq">
+                                Give Food Now
+                            </button>
+                            <button class="btn btn-primary bluebtn submit-edit "
+                                style="margin-top: 30px; background-color: white; border-color: navy; color : navy;""
+                                onclick=" Orders()" id="genOdr">
+                                Check Request Status
+                            </button>
+                            <button class="btn btn-primary text-white  submit-edit" style="margin-top: 30px;"
+                                onclick="Profile()">
+                                My Profile
+                            </button>
+                            <!-- choose option ends -->
+
+                        </div>
+                    </div>
+
+                    <!-- section Landing Site ends here -->
+
+
+
+
+
+                    <!-- section Screen1 Current Location starts here -->
+
+
+                    <div class="p-5" id="Screen1" style="display: none;">
+
+                        <div class="row justify-content-center marginmap">
+
+                            <!-- map -->
+                            <div class="col-lg-12">
+                                <div class="col-12 text-center " style="margin-top: 5%;margin-left: -10px;">
+
+                                    <h4 class="mb-4">Please confirm your current location on map.</h4>
+                                </div>
+
+
+                                <div id="map1" class="map" style="height: 400px;width: 100%;">
+                                    <div class="row">
+                                        <div class="pl-5 pr-5 pt-5 text-center" style="color:#16AF00;">
+                                            Cannot Fetch for Location,
+                                            Please
+                                            check your permissions and refresh your page!</div>
+                                    </div>
+                                </div>
+
+                                <div class="p-2">
+                                    <p id="markerError1"></p>
+
+                                    <div class="form-group " style="margin-bottom: 0rem !important;">
+
+                                        <div class="row justify-content-center">
+
+                                            <input type="text" class="form-control form-content" id="loclat" readonly
+                                                required style="display: none;">
+                                            <input type="text" class="form-control form-content" id="loclon" readonly
+                                                required style="display: none;">
+                                        </div>
+
+
+                                        <div class="row justify-content-center note">
+
+                                            <button class="btn btn-primary btn-block send-otp text-white  popbtn "
+                                                type="submit" onclick="Screen2()" data-dismiss="modal">PROCEED
+                                            </button>
+                                        </div>
+
+                                        <div class="row " style="margin-top: 50px;">
+                                            <div class="col-11 justify-content-center">
+                                                <a class="anchor-text  send-otp float-left" onclick="Landing()">
+                                                    &laquo;Back
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- mapends -->
+                        </div>
+                    </div>
+
+                    <!-- section Screen1 ends here -->
+
+
+
+
+
+                    <!-- section Screen2 Meal Type starts here -->
+
+
+                    <div class="p-5" id="Screen2" style="display: none;">
+                        <div class="row justify-content-center marginmap">
+
+                            <!-- map -->
+                            <div class="col-lg-12">
+                                <div class="p-2">
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-5 text-center" style="margin-left: -30px;">
+                                            <h4 class="text-center ">Select what you would like to give.</h4>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="form-group " style="margin-bottom: 0rem !important;">
+
+                                        <div class="row text-center " style="display: block;">
+
+                                            <label class="container cust-radiobtn">Food
+                                                <input type="radio" name="radio" value="Food">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="container cust-radiobtn">Ration
+                                                <input type="radio" name="radio" value="Ration">
+                                                <span class="checkmark"></span>
+                                            </label>
+
+                                        </div>
+
+
+                                        <div class="row justify-content-center note">
+
+                                            <button class="btn btn-primary btn-block send-otp text-white  popbtn "
+                                                type="submit" onclick="Screen3()" data-dismiss="modal" id="mealButton"
+                                                disabled>PROCEED
+                                            </button>
+                                        </div>
+
+                                        <div class="row " style="margin-top: 50px;">
+                                            <div class="col-11 justify-content-center">
+                                                <a class="anchor-text  send-otp float-left" onclick="Screen1()">
+                                                    &laquo;Back
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- mapends -->
+                        </div>
+                    </div>
+
+                    <!-- section Screen2 ends here -->
+
+
+
+
+
+
+                    <!-- section Screen3 Session Number starts here -->
+
+                    <div class="p-5" id="Screen3" style="display: none;">
+
+                        <!-- table      -->
+                        <div class="row justify-content-center marginmap">
+                            <!-- map -->
+                            <div class="col-lg-12">
+                                <div class="p-2">
+                                    <h4 class="text-center note">Select your preferred time slot</h4>
+
+                                    <div class="form-group " style="margin-bottom: 0rem !important;">
+
+                                        <div class="row justify-content-center ">
+                                            <div class="col-10 note " style="margin-top: 3% ;">
+
+                                                <select class="custom-select form-content" id="sessionDrop"
+                                                    onchange="sessionChange()" name="session" required>
+                                                    <option selected value="">Select time slot</option>
+
+                                                    <% if(hour<11){ %>
+                                                    <option value="1">8:00AM - 12:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <option value="2">12:00PM - 4:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <option value="3"> 4:00PM - 8:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <% } else if(hour<12){ %>
+                                                    <option value="2">12:00PM - 4:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <option value="3"> 4:00PM - 8:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <% } else if(hour<15){ %>
+                                                    <option value="1">8:00AM - 12:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <option value="2">12:00PM - 4:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <option value="3"> 4:00PM - 8:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <% } else if(hour<16){ %>
+                                                    <option value="1">8:00AM - 12:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <option value="3"> 4:00PM - 8:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <% } else if(hour<19) {%>
+                                                    <option value="1">8:00AM - 12:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <option value="2">12:00PM - 4:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <option value="3"> 4:00PM - 8:00PM on <%= date %>
+                                                        <%= mlist[month] %>
+                                                    </option>
+                                                    <% } else if(hour<20) {%>
+                                                    <option value="1">8:00AM - 12:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <option value="2">12:00PM - 4:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <% } else  {%>
+                                                    <option value="1">8:00AM - 12:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <option value="2">12:00PM - 4:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <option value="3">4:00PM - 8:00PM on <%= tdate %>
+                                                        <%= mlist[tmonth] %>
+                                                    </option>
+                                                    <% } %>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row justify-content-center note">
+                                            <button class="btn btn-primary btn-block send-otp text-white  popbtn "
+                                                type="submit" onclick="Screen4()" data-dismiss="modal"
+                                                id="sessionButton" disabled>PROCEED
+                                            </button>
+                                        </div>
+
+                                        <div class="row " style="margin-top: 50px;">
+                                            <div class="col-11 justify-content-center">
+                                                <a class="anchor-text  send-otp float-left" onclick="Screen2()">
+                                                    &laquo;Back
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- mapends -->
+                        </div>
+                    </div>
+
+                    <!-- section Screen3 ends here -->
+
+
+
+
+
+                    <!-- section Screen4 List of Requests starts here -->
+
+                    <div class="p-5" id="Screen4" style="display: none;">
+                        <!-- table      -->
+                        <div class="text-center">
+                            <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">Accept Request</h4>
+                            <p style="margin-top: 10px;margin-right: 20px;font-size: 14px;">Please review the requests
+                                below and choose the one that best suits your time and choice of meal.
+                        </div>
+
+
+                        <div id="Requests">
+
+
+                            <div class="card request-card-box  ">
+                                <div class="card-body pr-0 pl-0 pb-3">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row ml-4 ">
+
+                                                <div class="col-sm-3 card-request-img ">
+                                                    <div class="row">
+                                                        <img src="images/Logo/female.png" alt="" style="width: 50%;">
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="col-sm-3 card-request  card-request-small">
+                                                    <div class="row  ">
+                                                        <span style="color: #16AF00 !important;font-size: 12px;">Meal
+                                                            Preference</span> &nbsp; <span class="request-text"
+                                                            style="font-size: 12px;"> :&nbsp; Ration</span>
+                                                    </div>
+                                                    <div class="row  ">
+                                                        <span style="color: #16AF00 !important;font-size: 12px;">Time
+                                                            Slot</span> &nbsp; <span class="request-text"
+                                                            style="font-size: 12px;">: &nbsp; 4:00pm - 8:00pm</span>
+                                                    </div>
+                                                    <!-- <div class="row  ">
+                                                        <a style="color: #16AF00 !important;font-size: 12px;">Recipient ID</a> &nbsp;   <a class="request-text" style="font-size: 12px;">: &nbsp; jidwjd743892</a>  
+                                                      </div>
+                                                     -->
+
+                                                </div>
+
+                                                <div class="col-sm-3 card-request-otp card-request-small">
+                                                    <!-- <div class="row   ">
+                                                    <a style="color: #16AF00 !important;font-size: 12px;">OTP</a> &nbsp;   <a class="request-text" style="font-size: 12px;">: &nbsp; 3446</a>  
+                                                  </div>
+                                                -->
+
+                                                    <div class="row">
+                                                        <span
+                                                            style="color: #16AF00 !important;font-size: 12px;">Quantity</span>
+                                                    </div>
+                                                    <div class="row  ">
+                                                        <span class="request-text" style="font-size: 12px;">Child</span>
+                                                        &nbsp; <span class="request-text" style="font-size: 12px;">
+                                                            :&nbsp; 4</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <span class="request-text" style="font-size: 12px;">Adult</span>
+                                                        &nbsp; <span class="request-text" style="font-size: 12px;">
+                                                            :&nbsp;2</span>
+                                                    </div>
+
+
+
+                                                </div>
+
+                                                <div class="col-sm-2  card-request-btn-web">
+
+                                                    <div class="row  justify-content-center" style="margin-top: 4px;">
+                                                        <button class="btn ready-btn-rqst"
+                                                            style="font-size: 12px;color: white;width: 70px;padding-bottom: 2px;padding-top: 2px;"
+                                                            onclick="Screen5(123)">Accept</button>
+
+                                                    </div>
+                                                    <!-- <div class="row  justify-content-center" style="margin-top: 10px;">
+                                                        <button  class="btn Cancle-btn-rqst"  style="font-size: 12px;color: white;width: 70px;padding-bottom: 2px;padding-top: 2px;">Cancle</button> 
+                                                      </div>
+                                                  -->
+                                                </div>
+
+
+                                                <div class="col-sm-2  card-request-btn-mob">
+
+                                                    <div class="row  justify-content-center"
+                                                        style="margin-top: 4px;margin-left: -12%;">
+                                                        <button class="btn ready-btn-rqst"
+                                                            onclick="Screen5(123)">Accept</button>
+                                                        <!-- <button  class="btn Cancle-btn-rqst"  >Cancle</button>  -->
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row " style="margin-top: 50px;">
+                            <div class="col-11 justify-content-center">
+                                <a class="anchor-text  send-otp float-left" onclick="Screen3()">
+                                    &laquo;Back
+                                </a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- section Screen4 ends here -->
+
+
+
+
+
+
+                    <!-- section Screen5 Drop Location starts here -->
+
+
+                    <div class="p-5" id="Screen5" style="display: none;">
+                        <!-- table      -->
+                        <!-- <h4>Please Drop off the Following Request from Dropoff Point within an hour</h4> -->
+                        <div class="row justify-content-center marginmap">
+                            <!-- map -->
+                            <div class="col-lg-12">
+                                <div class="col-12 text-center " style="margin-top: 5%;margin-left: -10px;">
+
+                                    <h4 class="mb-4">Please select dropping point.</h4>
+                                </div>
+
+                                <div id="map" class="map" style="height: 400px;width: 100%;">
+                                    <div class="row">
+                                        <div class="pl-5 pr-5 pt-5 text-center" style="color:#16AF00;">
+                                            Cannot Fetch for Location,
+                                            Please
+                                            check your permissions and refresh your page!</div>
+                                    </div>
+                                </div>
+
+                                <div class="p-2">
+                                    <p id="markerError1"></p>
+
+                                    <div class="form-group " style="margin-bottom: 0rem !important;">
+                                        <form action="/dashboard/accept" method="POST">
+                                            <div class="row justify-content-center">
+
+                                                <input type="text" class="form-control form-content" id="donorlat"
+                                                    name="donorlat" readonly required style="display: none;">
+                                                <input type="text" class="form-control form-content" id="donorlon"
+                                                    name="donorlon" readonly required style="display: none;">
+                                                <input type="text" class="form-control form-content" id="droplat"
+                                                    name="droplat" readonly required style="display: none;">
+                                                <input type="text" class="form-control form-content" id="droplon"
+                                                    name="droplon" readonly required style="display: none;">
+                                                <input type="text" class="form-control form-content" id="nodal"
+                                                    name="nodal" readonly required style="display: none;">
+                                                <input type="text" class="form-control form-content" id="contact"
+                                                    name="contact" readonly required style="display: none;">
+                                                <input type="text" name="id" value="<%=currentUser._id%>"
+                                                    style="display: none;" readonly>
+
+                                                <div class="col-sm-12 text-center ">
+                                                    <div id="kya">
+                                                        <span
+                                                            style="color: #ff8400; font-size: 16px;margin-left: -25px !important;">
+                                                            Enter details about drop-point</span>
+                                                        <div class="form-group">
+                                                            <textarea class="map-address-box mt-2" cols="30" rows="4"
+                                                                name="desc" id="droptext"
+                                                                placeholder="landmark, shop number , plot number etc."
+                                                                required></textarea>
+                                                        </div>
+
+
+                                                        <div class="row justify-content-center">
+                                                            <div class="col-sm-10    form-check text-center">
+                                                                <label class="form-check-label map-text">
+                                                                    <input type="checkbox"
+                                                                        class="form-check-input custom-checkbox  "
+                                                                        name="share" id="" value="1">
+                                                                    Want to share Contact details with Recipient
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row justify-content-center mr-1">
+                                                        <button
+                                                            class="btn btn-primary btn-block send-otp text-white  popbtn "
+                                                            type="submit" name="transactionID" id="dropButton">PROCEED
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
+
+                                        <div class="row " style="margin-top: 50px;">
+                                            <div class="col-11 justify-content-center">
+                                                <a class="anchor-text  send-otp float-left" onclick="Screen4()">
+                                                    &laquo;Back
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- mapends -->
+                        </div>
+                        <!-- <h4 style="text-align: left;color: #ff8400;">Please note :</h4>
+                        <li>Please Drop off the Following Request from Dropoff Point within an hour</li> -->
+                    </div>
+
+                    <!-- section Screen5 ends here -->
+
+
+
+
+
+                    <!-- section Orders starts here -->
+
+                    <div class="p-5" id="Orders" style="display: none;">
+                        <div class="text-center">
+                            <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">Accepted Request</h4>
+                        </div>
+                        <div class="text-center">
+                            Please scroll down to see all the request.
+                        </div>
+
+                        <!-- <h4>Please Click on Drop-Off 1 hour prior to Delivery</h4> -->
+
+                        <div id="PastRequests">
+
+
+                            <div class="card request-card-box  ">
+                                <div class="card-body pr-0 pl-0 pb-3">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row ml-4 ">
+
+                                                <div class="col-sm-3 card-request-img ">
+                                                    <div class="row">
+                                                        <img src="images/Logo/female.png" alt="" style="width: 50%;">
+                                                    </div>
+
+
+
+                                                </div>
+                                                <div class="col-sm-3 card-request  card-request-small">
+                                                    <div class="row  ">
+                                                        <span style="color: #16AF00 !important;font-size: 12px;">Meal
+                                                            Preference</span> &nbsp; <span class="request-text"
+                                                            style="font-size: 12px;"> :&nbsp; Ration</span>
+                                                    </div>
+                                                    <div class="row  ">
+                                                        <span style="color: #16AF00 !important;font-size: 12px;">Time
+                                                            Slot</span> &nbsp; <span class="request-text"
+                                                            style="font-size: 12px;">: &nbsp; 4:00pm - 8:00pm</span>
+                                                    </div>
+                                                    <!-- <div class="row  ">
+                                                        <a style="color: #16AF00 !important;font-size: 12px;">Recipient ID</a> &nbsp;   <a class="request-text" style="font-size: 12px;">: &nbsp; jidwjd743892</a>  
+                                                      </div>
+                                                     -->
+
+                                                </div>
+
+                                                <div class="col-sm-3 card-request-otp card-request-small">
+                                                    <!-- <div class="row   ">
+                                                    <a style="color: #16AF00 !important;font-size: 12px;">OTP</a> &nbsp;   <a class="request-text" style="font-size: 12px;">: &nbsp; 3446</a>  
+                                                  </div>
+                                                -->
+
+                                                    <div class="row">
+                                                        <span
+                                                            style="color: #16AF00 !important;font-size: 12px;">Quantity</span>
+                                                    </div>
+                                                    <div class="row  ">
+                                                        <span class="request-text" style="font-size: 12px;">Child</span>
+                                                        &nbsp; <span class="request-text" style="font-size: 12px;">
+                                                            :&nbsp; 4</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <span class="request-text" style="font-size: 12px;">Adult</span>
+                                                        &nbsp; <span class="request-text" style="font-size: 12px;">
+                                                            :&nbsp;2</span>
+                                                    </div>
+
+
+
+                                                </div>
+
+                                                <div class="col-sm-2  card-request-btn-web">
+        
+                                                    <div class="row  justify-content-center" style="margin-top: 4px;">
+                                                        <button class="btn ready-btn-rqst"  style="font-size: 12px;color: white;width: 70px;padding-bottom: 2px;padding-top: 2px;">Ready</button>
+                                                        
+                                                      </div>
+                                                      <div class="row  justify-content-center" style="margin-top: 10px;">
+                                                        <button  class="btn Cancle-btn-rqst"  style="font-size: 12px;color: white;width: 70px;padding-bottom: 2px;padding-top: 2px;">Cancle</button> 
+                                                      </div>
+                                                 
+                                                </div>
+        
+        
+                                                <div class="col-sm-2  card-request-btn-mob">
+        
+                                                    <div class="row  justify-content-center" style="margin-top: 4px;margin-left: -12%;">
+                                                        <button class="btn ready-btn-rqst" >Ready</button>
+                                                        <button  class="btn Cancle-btn-rqst"  >Cancle</button> 
+                                                        
+                                                      </div>
+                                                    
+                                                 
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row pb-3" style="margin-top: 50px;">
+                            <div class="col-11 justify-content-center">
+                                <a class="anchor-text  send-otp float-left" onclick="Landing()">
+                                    &laquo;Back
+                                </a>
+                            </div>
+                        </div>
+
+                        <h4 style="text-align: left;color: #ff8400;">Please note :</h4>
+                        <li>Please click on Ready 1 hour prior to delivering the food/ration.</li>
+                    </div>
+
+                    <!-- section Orders ends here -->
+
+
+
+
+
+                    <!-- section 5 personal_information -->
+
+                    <div class="p-5" id="Profile" style="display: none;">
+                        <div class="text-center">
+                            <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">Personal Information</h4>
+                        </div>
+                        <!-- form       -->
+                        <form>
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Number</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label"
+                                        id="static-username" value="<%=currentUser.username%>">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Full name</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label"
+                                        id="static-password" value="<%=currentUser.name%>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Gender</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="Gender"
+                                        value="<%=currentUser.gender%>">
+                                </div>
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Age</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="Age"
+                                        value="<%=currentUser.age%>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">User-Type</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="usertype"
+                                        value="<%=currentUser.userType%>">
+                                </div>
+                                <label for="static-email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label"
+                                        id="static-email" value="<%=currentUser.email%>">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">State</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="state"
+                                        value="<%=currentUser.location.state%>">
+                                </div>
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">City</label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="city"
+                                        value="<%=currentUser.location.city %>">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+
+                                    <input type="text" readonly
+                                        class="form-control-plaintext label-content edit-content-label" id="address"
+                                        value="<%=currentUser.address %>">
+                                </div>
+                            </div>
+
+
+
+
+                        </form>
+                        <!-- form ends    -->
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4 btn-content">
+                                <form action="/dashboard/edit" method="GET">
+                                    <button class="btn btn-primary text-white  submit-edit" type="submit">
+                                        Edit
+                                    </button>
+
+                                </form>
+                            </div>
+
+                            <div class="col-sm-4 btn-content">
+                                <a href="#" class="btn btn-primary text-white  submit-edit" role="button"
+                                    data-toggle="modal" data-target="#deletemodal">
+                                    Delete Account
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <div class="row " style="margin-top: 50px;">
+                            <div class="col-11 justify-content-center">
+                                <a class="anchor-text  send-otp float-left" onclick="Landing()">
+                                    &laquo;Back
+                                </a>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <!-- section 5 personal_information ends here-->
+
+
+
+                    <!-- Modal -->
+                    <div id="myModal2" class="modal fade" role="dialog" style="padding-right: -17px;">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content text-center">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    style="text-align: right;">&times;</button>
+                                <div class="modal-body">
+                                    <div id="map2" class="map" style="height: 400px;">
+                                        <div class="row">
+                                            <div class="pl-5 pr-5 pt-5 text-center" style="color:#16AF00;">
+                                                Cannot Fetch for Location,
+                                                Please
+                                                check your permissions and refresh your page!</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="p-2">
+                                        <p id="markerError"></p>
+                                        <div class="form-group justify-content-center">
+                                            <div class="row justify-content-center">
+                                                <div class="col-lg-12 p-0">
+                                                    <span style="color: #ff8400; font-size: 20px;"> Note :</span> <br>
+                                                    Your Drop Off Location!
+
+                                                </div>
+                                                <button class="btn btn-primary text-white mt-2  submit-edit"
+                                                    type="submit" style="width: 30%;" class="close"
+                                                    data-dismiss="modal">&times;
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- modal section ends here -->
+
+
+
+
+
+
+
+                    <!-- Modal -->
+                    <div id="deletemodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content ">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    style="text-align: right;">&times;</button>
+                                <!-- <h3 class="pt-3 pl-3">Your Drop Off Location!</h3> -->
+                                <!-- <div class="modal-header">
+
+                                    <div id="map" style="height: 400px; width: 400px;">Cannot Fetch for Location, Please
+                                        check your permissions and refresh your page!</div>
+                                  
+                                </div> -->
+                                <div class="modal-body">
+
+                                    <div class="p-2">
+                                        <p id="markerError"></p>
+                                        <div class="row ">
+                                            <div class="col-sm-12 form-check text-center">
+                                                <h5> Please confirm to delete your account.</h5>
+
+                                            </div>
+                                            <div class="container">
+                                                <center style="margin-top: 20px;">
+                                                    <form action="/dashboard/delete" method="POST">
+                                                        <input type="text" name="id" value="<%=currentUser._id%>"
+                                                            style="display: none;" readonly>
+                                                        <input type="text" name="userType"
+                                                            value="<%=currentUser.userType%>" style="display: none;"
+                                                            readonly>
+                                                        <button class="btn text-white  submit-edit" type="submit"
+                                                            style="width: 40%;">Yes</button>
+                                                    </form>
+                                                    <br>
+                                                    <button type="button" class="btn text-white  submit-edit"
+                                                        style="width: 40%;" data-dismiss="modal">No</button>
+                                                </center>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- modal section ends here -->
+
+
+
+
+                    <!-- Modal -->
+                    <div id="cancelmodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content ">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    style="text-align: right;">&times;</button>
+                                <!-- <h3 class="pt-3 pl-3">Your Drop Off Location!</h3> -->
+                                <!-- <div class="modal-header">
+
+                                    <div id="map" style="height: 400px; width: 400px;">Cannot Fetch for Location, Please
+                                        check your permissions and refresh your page!</div>
+                                  
+                                </div> -->
+                                <div class="modal-body">
+
+                                    <div class="p-2">
+                                        <p id="markerError"></p>
+                                        <div class="row ">
+                                            <div class="col-sm-12 form-check text-center">
+                                                <h5> Do you really wish to cancel the request?</h5>
+
+                                            </div>
+                                            <div class="container">
+                                                <center style="margin-top: 20px;">
+                                                    <form action="/dashboard/cancel" method="POST">
+                                                        <button class="btn text-white  submit-edit" id="cancelButton"
+                                                            name="transactionID" type="submit"
+                                                            style="width: 40%;">Yes</button>
+                                                    </form>
+                                                    <br>
+                                                    <button type="button" class="btn text-white  submit-edit"
+                                                        style="width: 40%;" data-dismiss="modal">No</button>
+                                                </center>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- modal section ends here -->
+
+
+
+
+
+
+
+                    <!-- ready modal -->
+
+                    <div id="readymodal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content ">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    style="text-align: right;">&times;</button>
+                                <div class="modal-body">
+
+                                    <div class="p-2">
+                                        <div class="form-group justify-content-center">
+                                            <div class="row">
+                                                <div class="col-lg-12 p-0">
+                                                    <span style="color: #ff8400; font-size: 20px;"> Note :</span> <br>
+                                                    1.You should only press ready 1 hour before you want to start the
+                                                    delivery process.<br>
+                                                    2.Please write the OTP & Customer ID and attach it to the food
+                                                    parcel.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2">
+                                        <div class="row justify-content-center"
+                                            style="margin-top: -20px;margin-left: 20px;">
+                                            <div class="col-sm-10 form-check text-center">
+                                                <label class="form-check-label map-text">
+
+                                                    <input type="checkbox" class="form-check-input custom-checkbox  "
+                                                        name="share" id="readyCheck" value="1">
+                                                    I agree to deliver food within next hour and have attached
+                                                    recipient ID & OTP on food parcel as well.
+
+                                                </label>
+                                                <form action="/dashboard/prepared" method="POST">
+                                                    <button class="btn text-white submit-edit" id="readyButton"
+                                                        style="width: 40%;margin-top: 20px;margin-left: -50px;"
+                                                        name="transactionID" type="submit" disabled>Continue
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- ready modal ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%if(Order && Order=="Yes"){ %>
+<script>
+    $("#Landing").hide();
+    $("#Orders").show();
+</script>
+<% } %>
+
+<%if(currentUser.transactions.length>=5){ %>
+<script>
+    conLock();
+    function conLock() {
+        $('#genReq').prop('disabled', true);
+        alert("Maximum of 5 Request can be under process for a given user at a time!")
+    }
+</script>
+<% } %>
+
+
+<script>
+    var APIADDRESS = "/api/transactions";
+    var marker, marker1, marker2;
+    var map, infoWindow, map1, map2;
+    var lat = 0, lon = 0;
+    var newlat = 0, newlon = 0;
+
+    var lastWindow = null;
+
+    var mealType, sessionNumber;
+    var Session = ["", "8:00AM - 12:00PM", "12:00PM - 4:00PM", "4:00PM - 8:00PM"]
+
+    function initMap() {
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, locError);
+            document.getElementById('map').setAttribute("value", "");
+            document.getElementById('map1').setAttribute("value", "");
+            document.getElementById('map2').setAttribute("value", "");
+        } else {
+            locError();
+            alert("Your Device does not support geolocation!")
+        }
+
+    }
+
+    function locError() {
+        $('#genReq').prop('disabled', true);
+        $('#genOdr').prop('disabled', true);
+        alert("Please grant the website permission to access your location!")
+    }
+
+    function showPosition(position) {
+        lat = position.coords.latitude
+        lon = position.coords.longitude;
+        newlat = position.coords.latitude
+        newlon = position.coords.longitude;
+        if (lat != 0 && lon != 0) {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: { lat: lat, lng: lon },
+            });
+
+            map1 = new google.maps.Map(document.getElementById('map1'), {
+                zoom: 16,
+                center: { lat: lat, lng: lon },
+            });
+
+            map2 = new google.maps.Map(document.getElementById('map2'), {
+                zoom: 13,
+                center: { lat: lat, lng: lon },
+            });
+
+            map.addListener('click', function (e) {
+                placeMarkerAndPanTo(e.latLng, map);
+            });
+
+            map1.addListener('click', function (e) {
+                placeMarkerAndPan(e.latLng, map1);
+            });
+        }
+        else {
+            locError();
+            alert("Please turn on your Location!")
+        }
+    }
+
+    function placeMarkerAndPanTo(latLng, map) {
+        if (google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng({ lat: newlat, lng: newlon }), latLng) <= 2500) {
+            $('#markerError').text("")
+            if (marker) {
+                marker.setMap(null)
+            }
+            marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
+            $("#donorlat").val(newlat);
+            $("#donorlon").val(newlon);
+            $("#droplat").val(latLng.lat);
+            $("#droplon").val(latLng.lng);
+            $("#nodal").val(0);
+            $("#droptext").text("");
+            $("#dropcheck").prop("checked", false);
+            $("#contact").val(0);
+            $("#kya").show();
+            if (lastWindow) lastWindow.close();
+
+        }
+        else {
+            $('#markerError').text("Marker placed Too far, Please select a dropoff location within 2500 meters of current location")
+        }
+    }
+
+    $('#dropcheck').change(function () {
+        cb = $(this);
+        if (cb.prop('checked')) {
+            $('#contact').val('<%=currentUser.username%>');
+        }
+        else {
+            $('#contact').val(0);
+        }
+    });
+
+    function placeMarkerAndPan(latLng, map) {
+        if (google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng({ lat: lat, lng: lon }), latLng) <= 2500) {
+            $('#markerError1').text("")
+            if (marker1) {
+                marker1.setMap(null)
+            }
+            marker1 = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
+
+            newlat = latLng.lat();
+            newlon = latLng.lng();
+            map.panTo(latLng)
+        }
+        else {
+            $('#markerError1').text("Marker placed Too far, Please select a dropoff location within 2500 meters of current location")
+        }
+    }
+
+    function changeloc() {
+
+        if (marker1) {
+            marker1.setMap(null)
+        }
+
+        marker1 = new google.maps.Marker({
+            position: new google.maps.LatLng({ lat: newlat, lng: newlon }),
+            map: map1
+        })
+    }
+
+    function readyButton(reqID) {
+        $('#readyButton').val(reqID);
+    }
+
+    function cancelButton(reqID) {
+        $('#cancelButton').val(reqID);
+    }
+
+    $('#readyCheck').change(function () {
+        cb = $(this);
+        if (cb.prop('checked')) {
+            $('#readyButton').prop('disabled', false);
+        }
+        else {
+            $('#readyButton').prop('disabled', true);
+        }
+    });
+
+
+    $('input:radio[name=radio]').click(function () {
+        mealType = $('input:radio[name=radio]:checked').val();
+        $('#mealButton').prop('disabled', false);
+    });
+
+    function sessionChange() {
+        if ($("#sessionDrop").val() != "") {
+            sessionNumber = $("#sessionDrop").val();
+            $('#sessionButton').prop('disabled', false);
+        }
+        else {
+            $('#sessionButton').prop('disabled', true);
+        }
+    }
+
+    // Attaches an info window to a marker with the provided message. When the
+    // marker is clicked, the info window will open with the secret message.
+    function attachSecretMessage(markerN, lat, lon, uid, address, contact) {
+        var infowindow = new google.maps.InfoWindow({
+            content: "This is a verified Drop - Point for Anndata"
+        });
+
+        markerN.addListener('click', function () {
+            if (marker) {
+                marker.setMap(null)
+            }
+            if (lastWindow) lastWindow.close();
+            infowindow.open(markerN.get('map'), markerN);
+            $("#donorlat").val(newlat);
+            $("#donorlon").val(newlon);
+            $("#droplat").val(lat);
+            $("#droplon").val(lon);
+            $("#nodal").val(uid);
+            $("#droptext").text(address);
+            $("#contact").val(contact);
+            $("#kya").hide();
+            lastWindow = infowindow;
+
+        });
+    }
+
+    function Landing() {
+
+        $("#errAlert").hide();
+        $("#sucAlert").hide();
+        $("#Landing").show();
+        $("#Screen1").hide();
+        $("#Screen2").hide();
+        $("#Screen3").hide();
+        $("#Screen4").hide();
+        $("#Screen5").hide();
+        $("#Profile").hide();
+        $("#Orders").hide();
+
+    }
+
+    function Screen1() {
+        $("#errAlert").hide();
+        $("#sucAlert").hide();
+        $("#Landing").hide();
+        $("#Screen1").show();
+        $("#Screen2").hide();
+        $("#Screen3").hide();
+        $("#Screen4").hide();
+        $("#Screen5").hide();
+        $("#Profile").hide();
+        $("#Orders").hide();
+        changeloc();
+    }
+
+    function Screen2() {
+        $("#Landing").hide();
+        $("#Screen1").hide();
+        $("#Screen2").show();
+        $("#Screen3").hide();
+        $("#Screen4").hide();
+        $("#Screen5").hide();
+        $("#Profile").hide();
+        $("#Orders").hide();
+
+    }
+
+    function Screen3() {
+        $("#Landing").hide();
+        $("#Screen1").hide();
+        $("#Screen2").hide();
+        $("#Screen3").show();
+        $("#Screen4").hide();
+        $("#Screen5").hide();
+        $("#Profile").hide();
+        $("#Orders").hide();
+
+
+    }
+
+    function Screen4() {
+        $("#Landing").hide();
+        $("#Screen1").hide();
+        $("#Screen2").hide();
+        $("#Screen3").hide();
+        $("#Screen4").show();
+        $("#Screen5").hide();
+        $("#Profile").hide();
+        $("#Orders").hide();
+    }
+
+    function Screen5(reqID) {
+        $("#Landing").hide();
+        $("#Screen1").hide();
+        $("#Screen2").hide();
+        $("#Screen3").hide();
+        $("#Screen4").hide();
+        $("#Screen5").show();
+        $("#Profile").hide();
+        $("#Orders").hide();
+        mapRender(reqID);
+        addNodal();
+    }
+
+    function Profile() {
+
+        $("#errAlert").hide();
+        $("#sucAlert").hide();
+        $("#Landing").hide();
+        $("#Screen1").hide();
+        $("#Screen2").hide();
+        $("#Screen3").hide();
+        $("#Screen4").hide();
+        $("#Screen5").hide();
+        $("#Profile").show();
+        $("#Orders").hide();
+
+    }
+
+    function Orders() {
+
+        addPastRequest();
+        $("#errAlert").hide();
+        $("#sucAlert").hide();
+        $("#Landing").hide();
+        $("#Screen1").hide();
+        $("#Screen2").hide();
+        $("#Screen3").hide();
+        $("#Screen4").hide();
+        $("#Screen5").hide();
+        $("#Profile").hide();
+        $("#Orders").show();
+
+    }
+
+
+
+
+    function mapRender(reqID) {
+
+        if (marker) {
+            marker.setMap(null)
+        }
+
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng({ lat: newlat, lng: newlon }),
+            map: map
+        })
+
+        map.panTo(marker.position);
+        $("#dropButton").val(reqID);
+        $("#donorlat").val(newlat);
+        $("#donorlon").val(newlon);
+        $("#droplat").val(newlat);
+        $("#droplon").val(newlon);
+        $("#nodal").val(0);
+        $("#contact").val(0);
+    }
+
+    function dropRender(dlon, dlat) {
+        map2.panTo(new google.maps.LatLng({ lat: Number(dlat), lng: Number(dlon) }))
+        if (marker2) {
+            marker2.setMap(null);
+        }
+        marker2 = new google.maps.Marker({
+            position: new google.maps.LatLng({ lat: Number(dlat), lng: Number(dlon) }),
+            map: map2,
+            label: "Drop"
+        })
+    }
+</script>
+
+<%if(currentUser.location.state=="Delhi" || currentUser.location.state=="Haryana" || currentUser.location.state=="Uttar Pradesh"){ %>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1LD3IxWyKipGblWEyno-glF8JvH_NM4o&callback=initMap&libraries=geometry">
+    </script>
+<% } else { %>
+<script>
+    locLock();
+    function locLock() {
+        $('#genReq').prop('disabled', true);
+        $('#genOdr').prop('disabled', true);
+        $('#genReq').text("Service not Available in your Area")
+        alert("We will be soon available in your area")
+    }
+</script>
+<% } %>
+<%- include('../partials/tail') %>

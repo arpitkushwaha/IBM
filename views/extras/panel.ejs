@@ -1,0 +1,76 @@
+<%- include('../partials/head') %>
+<% total = 0 %>
+<div class="container padding-bottom-3x mb-2 margin-top-control-other">
+    <div class="card  shadow-lg o-hidden border-0 my-5 profile" style="background: rgba(255, 255, 255, 0.85);">
+        <div class="card-body p-0 pt-5">
+
+            <div class="row flex">
+
+                <div class="col-lg-6" style="text-align: center;">
+                    <h1>Donor</h1>
+                    <div class="row  table-content p-5">
+                        <table class="table  table-borderless">
+                            <thead style="color: #ff8400;">
+                                <tr>
+                                    <th>State</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(i=0;i<data.length;i++){ %>
+                                <% if(data[i]._id.type=="donor"){%>
+                                <tr class="table-row">
+                                    <td><%=data[i]._id.state%></td>
+                                    <td><%=data[i].count%></td>
+                                </tr>
+                                <% total +=  data[i].count %>
+                                <% } }%>
+                                <tr class="table-row">
+                                    <td>
+                                        <h4>Total</h4>
+                                    </td>
+                                    <td><%=total%></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <% total = 0 %>
+
+                <div class="col-lg-6" style="text-align: center;">
+                    <h1>Recipient</h1>
+                    <div class="row  table-content p-5">
+                        <table class="table  table-borderless">
+                            <thead style="color: #ff8400;">
+                                <tr>
+                                    <th>State</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(i=0;i<data.length;i++){ %>
+                                <% if(data[i]._id.type=="consumer"){%>
+                                <tr class="table-row">
+                                    <td><%=data[i]._id.state%></td>
+                                    <td><%=data[i].count%></td>
+                                </tr>
+                                <% total +=  data[i].count %>
+                                <% } }%>
+                                <tr class="table-row">
+                                    <td>
+                                        <h4>Total</h4>
+                                    </td>
+                                    <td><%=total%></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/tail') %>

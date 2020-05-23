@@ -1,0 +1,346 @@
+<%- include('partials/head') %>
+
+
+<style>
+  #myBtn {
+    z-index: 11;
+
+    right: 20px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #16AF00;
+    position: fixed;
+    color: white;
+    outline: none;
+    cursor: pointer;
+  }
+
+  #myBtn:active {
+    background: rgb(18, 124, 2);
+  }
+</style>
+
+<script>
+  var mybutton = document.getElementById("myBtn");
+  window.onscroll = function () { scrollFunction() };
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
+<!-- upbutton -->
+<button onclick="topFunction()" id="myBtn" title="Go to top">
+  <i class="fa fa-arrow-up" style="color: white !important;"></i>
+</button>
+
+
+<!-- upbutton ends -->
+
+<!-- slider -->
+
+<!-- <div class="owl-carousel-wrapper">
+  <div class="owl-carousel owl-1 ">
+    <div class="ftco-cover-1 overlay sliderimg1 pic1" style="background-image: url('images/slider/image1.jpg.png');"></div>
+    <div class="ftco-cover-1 overlay sliderimg1 pic2" style="background-image: url('images/slider/Image 2.jpg.png');"></div>
+    <div class="ftco-cover-1 overlay sliderimg1 pic3" style="background-image: url('images/slider/Image 3.jpg.png');"></div>
+    <div class="ftco-cover-1 overlay sliderimg1 pic4" style="background-image: url('images/slider/Image 4.jpg.png');"></div>
+    <div class="ftco-cover-1 overlay sliderimg1 pic5" style="background-image: url('images/slider/Image 5.jpg.png');"></div>
+  </div>
+</div> -->
+
+<!-- TRIAL -->
+
+<!-- Tag-line -->
+<div class="row text-center" style="margin-top: 100px ;">
+  <div class="container-fluid">
+    <div class="col-lg-12 text-center">
+      <p class="home-heading">Enabling a safe, dignified, anonymity-based, (food) giving experience. </p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Tag-line ends-->
+
+
+<!-- Slider main container -->
+<div class="swiper-container pb-5">
+  <!-- lower button -->
+  <% if(!currentUser){%>
+  <div class="container-fluid padding-bottom-3x mb-2" style="position: absolute;z-index: 5;">
+    <div class="py-0">
+      <div class="row">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 text-center btn-box">
+              <a href="/login" class="btn btn-primary text-white homebtn newhomebtn" role="button">
+                Login
+              </a>
+              <a href="/register" class="btn btn-primary text-white homebtn newhomebtn " role="button">
+                Register
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="container-fluid padding-bottom-3x mb-2" style="position: absolute;z-index: 5;">
+    <div class="py-0">
+      <div class="row">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 text-center btn-box">
+              <a href="/dashboard" class="btn btn-primary text-white homebtn newhomebtn" role="button">
+                Dashboard
+              </a>
+              <a href="/logout" class="btn btn-primary text-white homebtn newhomebtn " role="button">
+                Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } %>
+  <style>
+    .btn-box {
+      margin-top: 25%;
+    }
+
+    .newhomebtn {
+
+      margin-left: 10px;
+      margin-top: 20px;
+      width: 20%;
+    }
+
+    @media(max-width: 576px) {
+      .newhomebtn {
+        width: 50% !important;
+      }
+
+      .btn-box {
+        margin-top: 55%;
+      }
+
+    }
+  </style>
+
+  <!-- <a href="#" class="btn btn-primary text-white homebtn " role="button" style="width: 100%;">
+Donor 
+
+</a> -->
+
+  <!-- lower button ends -->
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper" style="position: relative;">
+    <!-- Slides -->
+    <div class="swiper-slide">
+      <img class="w-100 slider-img-mob" src="images/slider/Image 5.jpg.png" alt="">
+      <img class="w-100 slider-img-web" src="images/slider/image-5-web.jpg.png" alt="">
+
+    </div>
+    <div class="swiper-slide">
+      <img class="w-100 slider-img-mob" src="images/slider/Image 2.jpg.png" alt="">
+      <img class="w-100 slider-img-web" src="images/slider/image-2-web.jpg.png" alt="">
+    </div>
+    <div class="swiper-slide">
+      <img class="w-100 slider-img-mob" src="images/slider/Image 3.jpg.png" alt="">
+      <img class="w-100 slider-img-web" src="images/slider/image-3-web.jpg.png" alt="">
+    </div>
+    <div class="swiper-slide">
+      <img class="w-100 slider-img-mob" src="images/slider/Image 4.jpg.png" alt="">
+      <img class="w-100 slider-img-web" src="images/slider/image-4-web.jpg.png" alt="">
+    </div>
+    <div class="swiper-slide">
+
+      <img class="w-100 slider-img-mob" src="images/slider/image1.jpg.png" alt="">
+      <img class="w-100 slider-img-web" src="images/slider/image-1-web.jpg.png" alt="">
+    </div>
+
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination mt-5 pt-5"></div>
+</div>
+
+<style>
+  .slider-img-web {
+    display: block;
+  }
+
+  .slider-img-mob {
+    display: none;
+  }
+
+  @media(max-width: 575.98px) {
+
+    .slider-img-web {
+      display: none;
+    }
+
+    .slider-img-mob {
+      display: block;
+    }
+
+  }
+</style><!-- NEW CAROUSEL JS-->
+<script src="https://unpkg.com/swiper/js/swiper.js"></script>
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+<!-- ./NEW CAROUSEL JS -->
+<!-- SCRIPT RELATED TO NEW CAROUSLE -->
+<script>
+  var mySwiper = new Swiper('.swiper-container', {
+    // Optional parameters
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    //autoplay
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+
+    },
+
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  })
+</script>
+<!-- ./SCRIPT RELATED TO NEW CAROUSLE  -->
+
+
+<!-- ./TRIAL -->
+
+
+
+
+
+
+
+<!-- slider ends -->
+
+
+
+<!-- home page content -->
+
+<div class="container padding-bottom-3x mb-2">
+  <div class="card  shadow-lg o-hidden border-0 my-3 profile" style="  background: rgba(255, 255, 255, 0.85);">
+    <div class="card-body p-0">
+      <div class="row justify-content-center">
+
+
+
+        <div class="col-lg-8 ">
+
+          <!-- section 1 generate request -->
+
+          <div class="p-3" id="generate_req">
+            <div class="text-center mt-2">
+              <h4 class="text mb-3" style="color: #e77700;font-size: xx-large;font-weight: 600;">How it works</h4>
+            </div>
+            <div class="row justify-content-center m-3">
+              <div class="text-center">
+                It acts as a nourishing bridge between people who can provide food and/or ration to others who are in
+                need. AnnData will match <b style="font-weight: 600;"> Donors </b> and <b style="font-weight: 600;">
+                  Recipients </b> , based on the requirements and their proximity.
+
+              </div>
+              <div class="text-center mt-2">
+                <h4 class="text mt-3" style="color: #e77700;font-size: xx-large;font-weight: 600;">Donor</h4>
+              </div>
+              <div class="row justify-content-center m-3">
+                <div class="text-center">
+                  As a Donor you can help by <b style="font-weight: 600;">donating</b> food or ration; all with an
+                  easily <b style="font-weight: 600;">downloaded app</b>
+                  or from the <a href="https://www.anndata.co.in" class="anchor-text">Anndata</a> website. The
+                  Donor can choose to give cooked food and/or ration on a specified day and time to a Recipient at a
+                  place convenient to both.
+
+                </div>
+              </div>
+              <div class="text-center mt-2">
+                <h4 class="text mt-3" style="color: #e77700;font-size: xx-large;font-weight: 600;">Recipient</h4>
+              </div>
+              <div class="row justify-content-center m-3">
+                <div class="text-center">
+                  As a Recipient you can <b style="font-weight: 600;">seek assistance </b>for food & ration needs: all
+                  with an easily <b style="font-weight: 600;">downloaded app</b> or from the <a
+                    href="https://www.anndata.co.in" class="anchor-text">Anndata</a> website,
+                  The app will then match the food/ration requirements to a Donor; enabling the Recipient to connect
+                  with the Donor and complete the transaction.
+                </div>
+              </div>
+
+              <!-- video -->
+
+
+
+
+              <video class="video-fluid " autoplay loop controls muted style="width: 100%;height: auto;">
+                <source src="/images/anndata-video.mp4" type="video/mp4" />
+              </video>
+
+
+
+
+
+              <!-- video ends -->
+
+
+
+              <div class="text-center mt-2">
+                <h4 class="text mt-3" style="color: #e77700;font-size: xx-large;font-weight: 600;">Join Us</h4>
+              </div>
+              <div class="row justify-content-center m-3">
+                <div class="text-center">
+                  Anndata’s goal is to ease the struggle of the Recipient seeking food/ ration to sustain as a result of
+                  the economic crisis, job loss etc. The Anndata service and it’s <b style="font-weight: 600;">Person to
+                    Person</b> feature will make food and ration more accessible.
+                  We will not be able to do this without the help and dedication of each one of you. Together we can be
+                  part of a solution and make someone's life less stressful.
+
+                  <h5 class="anchor-text">'One Meal at a time.'</h5>
+                  <text-center>Jai Hind.</text-center>
+                </div>
+              </div>
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- home page content ends -->
+
+<%- include('partials/tail') %>

@@ -1,0 +1,151 @@
+<%- include('../partials/head') %>
+
+
+<div class="container ">
+    <div class="card  shadow-lg o-hidden border-0 my-5 register">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex ">
+                    <div class="flex-grow-1 bg-register-image" style="margin-top: 30%;">
+                        <img src="/images/slider/Image 2.jpg.png" alt=""
+                            style="width: 100%; height: 60%; background-size: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <img src="/images/Logo/usercreate.jpg" alt="" style="width: 50px;height: 50px;">
+                            <h4 class="text mb-4" style="color: #16AF00;font-size: xx-large;">Create an Account!</h4>
+                        </div>
+                        <!-- form       -->
+                        <%page= "/"+userType+"/register" %>
+                        <form action='<%= page %>' method="POST"
+                            onsubmit="if(document.getElementById('agree').checked) { return true; } else { alert('Please indicate that you have read and agree to the Terms and Conditions and Privacy Policy'); return false; }">
+                            <div class="form-group row">
+                                <div class="col-sm-12 mb3 mb-sm-0">
+                                    <% if(Ferror && Ferror.length>0){ %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong><%=Ferror %></strong>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="fullname" class="label-content">First Name</label>
+                                    <input type="text" class="form-control form-content" placeholder="First Name"
+                                        name="firstname" id="firstname" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="fullname" class="label-content">Last Name</label>
+                                    <input type="text" class="form-control form-content" placeholder="Last Name"
+                                        name="lastname" id="lastname" required>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="phNumber" class="label-content">Mobile Number</label>
+                                    <input type="text" class="form-control form-content text-center"
+                                        placeholder="Contact" name="username" readonly value="<%=phNumber%>"
+                                        id="phNumber">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="inputGroupSelect01" class="label-content">User Type</label>
+                                    <input type="text" class="form-control form-content text-center"
+                                        placeholder="User Type" name="userType" readonly
+                                        value="<%= userType.charAt(0).toUpperCase() + userType.slice(1) %> "
+                                        id="userType">
+                                </div>
+
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="inputGroupSelect01" class="label-content">Select Gender</label>
+                                    <select class="custom-select form-content" id="inputGroupSelect01" name="gender"
+                                        required>
+                                        <option selected value="">Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Others"> Others</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="age" class="label-content">Age</label>
+                                    <input type="text" class="form-control form-content" placeholder="Age" name="age"
+                                        required id="age">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="inputState" class="label-content"> Your State</label>
+                                    <select class="custom-select form-content" id="inputState" name="state" required>
+                                        <option selected value="">State</option>
+                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                        <option value="Assam">Assam</option>
+                                        <option value="Bihar">Bihar</option>
+                                        <option value="Chandigarh">Chandigarh</option>
+                                        <option value="Chhattisgarh">Chhattisgarh</option>
+                                        <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                        <option value="Daman and Diu">Daman and Diu</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Lakshadweep">Lakshadweep</option>
+                                        <option value="Puducherry">Puducherry</option>
+                                        <option value="Goa">Goa</option>
+                                        <option value="Gujarat">Gujarat</option>
+                                        <option value="Haryana">Haryana</option>
+                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                        <option value="Jharkhand">Jharkhand</option>
+                                        <option value="Karnataka">Karnataka</option>
+                                        <option value="Kerala">Kerala</option>
+                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                        <option value="Maharashtra">Maharashtra</option>
+                                        <option value="Manipur">Manipur</option>
+                                        <option value="Meghalaya">Meghalaya</option>
+                                        <option value="Mizoram">Mizoram</option>
+                                        <option value="Nagaland">Nagaland</option>
+                                        <option value="Odisha">Odisha</option>
+                                        <option value="Punjab">Punjab</option>
+                                        <option value="Rajasthan">Rajasthan</option>
+                                        <option value="Sikkim">Sikkim</option>
+                                        <option value="Tamil Nadu">Tamil Nadu</option>
+                                        <option value="Telangana">Telangana</option>
+                                        <option value="Tripura">Tripura</option>
+                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                        <option value="Uttarakhand">Uttarakhand</option>
+                                        <option value="West Bengal">West Bengal</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="inputCity" class="label-content"> Your City</label>
+                                    <input type="text" class="form-control form-content" placeholder="City" name="city"
+                                        required id="inputCity">
+                                </div>
+
+                                <button class="btn btn-primary btn-block text-white btn-user form-content"
+                                    type="submit">REGISTER
+                                    NOW</button>
+                        </form>
+                        <div class="text-center" style="margin: auto;">
+                            <input type="checkbox" name="checkbox" value="check" id="agree"> I have read and agree to
+                            the
+                            <p style="font-size: 14px;"></p><a href="/terms" class="anchor-text"><b>Privacy Policy</b>
+                            </a>and
+                            <a href="/terms" class="anchor-text">Term of Serivces</a> </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- form ends    -->

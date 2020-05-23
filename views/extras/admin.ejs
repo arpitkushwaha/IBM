@@ -1,0 +1,181 @@
+<%- include('../partials/head') %>
+
+<div class="container padding-bottom-3x mb-2 margin-top-control-other">
+    <div class="card  shadow-lg o-hidden border-0 my-5 profile" style="background: rgba(255, 255, 255, 0.85);">
+        <div class="card-body p-0 pt-5">
+
+            <div class="row flex">
+                <div class="col-lg-6" style="text-align: center;">
+                    <h1>Donor</h1>
+                    <div class="row  table-content p-5">
+                        <table class="table  table-borderless">
+                            <thead style="color: #ff8400;">
+                                <tr>
+                                    <th>State</th>
+                                    <th>Count</th>
+                                    <th>City-Wise</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(i=0;i<data.length;i++){ %>
+                                <% if(data[i]._id.type=="donor"){%>
+                                <tr class="table-row">
+                                    <td><%=data[i]._id.state%></td>
+                                    <td><%=data[i].count%></td>
+                                    <td><button onclick='addcity("<%=data[i]._id.state%>")'>Stats</button></td>
+                                </tr>
+                                <% } }%>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" style="text-align: center;">
+                    <h1>Consumer</h1>
+                    <div class="row  table-content p-5">
+                        <table class="table  table-borderless">
+                            <thead style="color: #ff8400;">
+                                <tr>
+                                    <th>State</th>
+                                    <th>Count</th>
+                                    <th>City-Wise</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(i=0;i<data.length;i++){ %>
+                                <% if(data[i]._id.type=="consumer"){%>
+                                <tr class="table-row">
+                                    <td><%=data[i]._id.state%></td>
+                                    <td><%=data[i].count%></td>
+                                    <td><button onclick='addcity("<%=data[i]._id.state%>")'>Stats</button></td>
+                                </tr>
+                                <% } }%>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="City-Wise" class="container padding-bottom-3x mb-2 margin-top-control-other" style="display: none;">
+    <div class="card  shadow-lg o-hidden border-0 my-5 profile" style="background: rgba(255, 255, 255, 0.85);">
+        <div class="card-body p-0 pt-5">
+
+            <div class="row flex">
+                <div class="col-lg-6" style="text-align: center;">
+                    <h1>City wise breakdown - <span id="StateName"></span></h1>
+                    <div class="row  table-content p-5">
+                        <table class="table  table-borderless">
+                            <thead style="color: #ff8400;">
+                                <tr>
+                                    <th>City</th>
+                                    <th>User-Type</th>
+                                    <th>Count</th>
+                                    <th>People</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cityTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="People" class="container padding-bottom-3x mb-2 margin-top-control-other" style="display: none;">
+    <div class="card  shadow-lg o-hidden border-0 my-5 profile" style="background: rgba(255, 255, 255, 0.85);">
+        <div class="card-body p-0 pt-5">
+
+            <div class="row flex">
+                <div class="col-lg-6" style="text-align: center;">
+                    <h1>City wise breakdown - <span id="StateName"></span></h1>
+                    <div class="row  table-content p-5">
+                        <table class="table  table-borderless">
+                            <thead style="color: #ff8400;">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>User-Type</th>
+                                    <th>Gender</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody id="peopleTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function addcity(state) {
+        $('#City-Wise').show();
+        $('#People').hide();
+        var table = $('#cityTable');
+        table.empty()
+        $.ajax({
+            method: "GET",
+            headers: {
+                "Authorization": "Basic QW5uZGF0YTpBbm5kYXRh"
+            },
+            url: "api/panel/state/" + state
+        }).done(function (results) {
+            for (i = 0; i < results.length; i++) {
+
+                table
+                    .append($('<tr>').attr("class", "table-row")
+                        .append($('<td>').text(results[i]._id.city))
+                        .append($('<td>').text(results[i]._id.type))
+                        .append($('<td>').text(results[i].count))
+                        .append($('<td>')
+                            .append($('<button>').attr("onclick", 'addpeople(\"'+results[i]._id.city+'\")').text("Stats")))
+                    )
+
+
+            }
+        })
+    }
+
+    function addpeople(city) {
+        $('#City-Wise').hide();
+        $('#People').show();
+        var table = $('#peopleTable');
+        table.empty()
+        $.ajax({
+            method: "GET",
+            headers: {
+                "Authorization": "Basic QW5uZGF0YTpBbm5kYXRh"
+            },
+            url: "api/panel/people/" + city
+        }).done(function (results) {
+            for (i = 0; i < results.length; i++) {
+
+                table
+                    .append($('<tr>').attr("class", "table-row")
+                        .append($('<td>').text(results[i].name))
+                        .append($('<td>').text(results[i].userType))
+                        .append($('<td>').text(results[i].gender))
+                        .append($('<td>').text(results[i].username))
+                    )
+
+            }
+        })
+    }
+</script>
+
+
+
+
+<%- include('../partials/tail') %>

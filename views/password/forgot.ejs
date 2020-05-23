@@ -1,0 +1,110 @@
+<%- include('../partials/head') %>
+
+
+<!-- slider -->
+<div class="container margin-top-control-other">
+  <div class="card  shadow-lg o-hidden border-0 my-5 register">
+    <div class="card-body p-0">
+      <div class="row">
+        <div class="col-lg-5 d-none d-lg-flex ">
+          <div class="flex-grow-1 bg-register-image ">
+            <img src="/images/slider/Image 5.jpg.png" alt="" style="width: 100%;height: 100%;background-size: cover;">
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="p-5">
+            <div class="text-center">
+              <h4 class="text mb-4" style="color:  #16AF00;font-size: xx-large;">Forgot Password</h4>
+            </div>
+            <div class="col-sm-12 mb3 mb-sm-0">
+              <% if(Ferror && Ferror.length>0){ %>
+              <div class="alert alert-danger" role="alert">
+                <strong><%=Ferror%></strong>
+              </div>
+              <% } %>
+            </div>
+            <form action="/password" method="POST">
+
+              <div class="form-group row justify-content-center form-content">
+                <div class="col-sm-10">
+                  <label for="exampleInputEmail1" class="label-content">Mobile Number</label>
+                  <input type="number" class="form-control form-content" id="exampleInputEmail1"
+                    placeholder="eg. 8674XXXXXX" name="username" pattern="[9876]{1}[0-9]{9}" autocomplete="off"
+                    value='<%=phNumber%>' readonly>
+                  <!-- <input type="password" class="form-control form-content" id="exampleInputPassword1"
+                    placeholder="Password" name="password"> -->
+                  <label for="Pass" class="label-content" style="margin-bottom: 10px;">New Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control pwd" id="Pass" placeholder="Password" name="password" onkeyup="check()" required>
+                    <span class="input-group-btn" id="eyeSlash">
+                      <button class="btn btn-default reveal"
+                        onclick="$('#Pass').attr('type', 'text');$('#eyeSlash').hide();$('#eyeShow').show();"
+                        type="button"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                    </span>
+                    <span class="input-group-btn" id="eyeShow" style="display: none;">
+                      <button class="btn btn-default reveal"
+                        onclick="$('#Pass').attr('type', 'password');$('#eyeShow').hide();$('#eyeSlash').show();"
+                        type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    </span>
+                  </div>
+
+                  <!-- confirm password -->
+
+
+
+                  <label for="matchPass" class="label-content" style="margin-bottom: 10px;margin-top: 10px;">Confirm Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control pwd" id="matchPass" placeholder="Password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$" onkeyup="check()" required>
+                    <span class="input-group-btn" id="eyeSlash1">
+                      <button class="btn btn-default reveal"
+                        onclick="$('#matchPass').attr('type', 'text');$('#eyeSlash1').hide();$('#eyeShow1').show();"
+                        type="button"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                    </span>
+                    <span class="input-group-btn" id="eyeShow1" style="display: none;">
+                      <button class="btn btn-default reveal"
+                        onclick="$('#matchPass').attr('type', 'password');$('#eyeShow1').hide();$('#eyeSlash1').show();"
+                        type="button"><i class="fa fa-eye" aria-hidden="true" ></i></button>
+                    </span>
+                  </div>
+
+                  <!-- confirm password end -->
+
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-sm-10 ">
+                  <button class="btn btn-primary btn-block text-white btn-user form-content send-otp"
+                    type="submit" id="battle" disabled>Save</button>
+                </div>
+
+            </form>
+          </div>
+
+
+
+          <div class="text-center form-content">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // function changeMe(this) {
+  //   console.log(this.type)
+  // }
+  function check() {
+    Pass = document.getElementById("Pass");
+    matchPass = document.getElementById("matchPass");
+    if (Pass.value == matchPass.value ) {//or whatever th unwanted value is
+      document.getElementById("battle").disabled = false;
+    } else {
+      document.getElementById("battle").disabled = true;
+    }
+  }
+
+</script>
+
+<!-- slider ends -->
+
+<%- include('../partials/tail') %>

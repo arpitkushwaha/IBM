@@ -1,0 +1,220 @@
+body
+{
+   /* background-color:rgba(184, 255, 196, 0.884); */
+   background-image: url(/images/New/tripc-v2.png);
+   position: sticky;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   
+}
+@media only screen and (max-width:770px)
+{
+    body
+    {
+        background-image: url(/images/New/tritab-v2.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: sticky;
+        background-attachment: fixed;
+    }
+}
+@media only screen and (max-width:425px)
+{
+    body {
+       background-image: url(/images/New/trimobile-v2.png);
+       background-size: cover;
+       background-repeat: no-repeat;
+       position: sticky;
+       background-attachment: fixed;
+    };
+}
+
+/* NAVBAR */
+@media(min-width:1200px ){
+    .margin-top-control{
+        padding-top: 6% !important;
+    }
+    .margin-top-control-other{
+        padding-top: 3.5%;
+    }
+}
+
+@media(max-width: 1199.98px ){
+    .margin-top-control-other{
+        padding-top: 5.3%;
+    }
+}
+
+@media(max-width: 768px ){
+    .margin-top-control-other{
+        padding-top: 4.5% ;
+    }
+}
+
+@media(max-width: 425px){
+    .margin-top-control-other{
+        padding-top: 10% ;
+    }
+}
+
+@media(max-width: 991.98px){
+
+    .margin-top-control{
+        padding-top: 20% !important;
+    }
+
+
+    #mySidenavUl{
+        overflow: auto;
+    }
+    
+    .navbar-nav {
+        float: left;
+        width: 50vw;
+        position: fixed;
+        z-index: 9999;
+    }
+    
+    .nav-link{
+        font-size: 14px;
+    }
+    
+    #mySidenavUl a{
+        color: #fff !important;
+    }
+    
+    #mySidenavUl .fa {
+        color: #fff !important;
+        font-size: 22px;
+    }
+    
+    #mySidenavUl li {
+        padding-top: 10px;
+        padding-left: 10px;
+    text-align: left;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgb(53, 53, 53);
+    }
+}
+
+/* NAVBAR ENDS */
+.register
+{
+    border: none;
+    border-radius: 20px;
+}
+.btn
+{   
+    font-family: "Futura Condensed";
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 7px;
+}
+#num
+{
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    
+    border-radius: 10px;
+}
+#OTP
+{
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    
+    border-radius: 10px;
+}
+.form-content
+{
+    
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#OTP1
+{
+    
+    text-align: center;
+    width: 40px;
+    height: 50px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+#OTP2
+{
+    
+    text-align: center;
+    width: 40px;
+    height: 50px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+#OTP3
+{
+    
+    text-align: center;
+    width: 40px;
+    height: 50px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+#OTP4
+{
+    
+    text-align: center;
+    width: 40px;
+    height: 50px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+.form-btn
+{
+    
+    margin-top: 20px;
+    width: 80%;
+}
+
+.sidenav{
+    background-color: rgba(22, 22, 22, 0.8);
+    height: 120vh;
+    width: 50vw;
+    display: block;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    transition: 0.1s;
+    padding-top: 15px;
+  }
+  
+  
+  
+  .sidenavbefore{
+    width: 0px;
+  }
+  
+  .ulbefore{
+    display: none;
+  }
+  
+  @media only screen and (min-width:992px)
+  {
+    #mySidenav{
+        display: none;
+    }
+    #mySidenavUl{
+        display: none;
+    }
+    
+  }
+
+  .reveal{
+    border-radius: 0px 7px 7px 0px !important;
+    padding: 0.63rem 0.85rem !important;
+}
+
+.fa-check-circle-o{
+    color: #6c757d!important;
+} 
